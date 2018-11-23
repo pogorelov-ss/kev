@@ -21,10 +21,10 @@ class S3DB(DocDB):
         #
         session_kwargs = {k: v for k, v in kwargs.items() if k in
                           self.session_kwargs}
-        if len(session_kwargs.keys()) > 0:
-            boto3.Session(**session_kwargs)
+        # if len(session_kwargs.keys()) > 0:
+        #     boto3.Session(**session_kwargs)
 
-        self._db = boto3.resource('s3')
+        self._db = boto3.resource('s3', **session_kwargs)
         self.bucket = kwargs['bucket']
         self._indexer = self._db.Bucket(self.bucket)
 
